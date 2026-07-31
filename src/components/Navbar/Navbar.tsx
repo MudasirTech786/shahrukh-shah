@@ -2,101 +2,47 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { cn } from "@/lib/cn";
-import { siteConfig } from "@/data/site";
-
-function isActivePath(pathname: string, href: string): boolean {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
-}
+import { NavItem } from "@/components/NavItem/NavItem";
+import { MobileMenu } from "@/components/MobileMenu/MobileMenu";
+import { navigation } from "@/data/navigation";
 
 export function Navbar() {
-  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-mist bg-paper/95 backdrop-blur">
-      <div className="mx-auto w-full max-w-[1600px] px-5 sm:px-8 lg:px-12">
-        <div className="relative flex h-16 items-center justify-between md:h-24 md:flex-col md:justify-center md:gap-5">
-          <Link
-            href="/"
-            className="font-serif text-[22px] font-medium leading-none tracking-wide text-ink transition-opacity hover:opacity-60 md:text-[26px]"
-            onClick={() => setMenuOpen(false)}
-          >
-            {siteConfig.name}
-          </Link>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#ececec] bg-white">
+      <div className="flex h-[90px] items-center justify-between pl-5 pr-5 sm:pl-8 sm:pr-8 lg:pl-12 lg:pr-12 xl:pl-20 xl:pr-20">
+        <Link href="/" className="block" onClick={() => setMenuOpen(false)}>
+          <span className="block font-brand text-[28px] leading-none text-[#333333] sm:text-[32px] lg:text-[34px] xl:text-[38px]">
+            Shahrukh Shah
+          </span>
+          <span className="mt-[3px] block text-[11px] font-medium uppercase tracking-[0.18em] text-[#666666]">
+            Producer + cinematographer
+          </span>
+        </Link>
 
-          <nav aria-label="Main" className="hidden md:block">
-            <ul className="flex items-center gap-9">
-              {siteConfig.nav.map((link) => {
-                const active = isActivePath(pathname, link.href);
-                return (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "text-[11px] font-light uppercase tracking-[0.18em] transition-opacity duration-200 hover:opacity-50",
-                        active ? "opacity-100" : "opacity-60",
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+        <nav aria-label="Main" className="hidden lg:block">
+          <ul className="flex items-center gap-6 xl:gap-8">
+            {navigation.map((item) => (
+              <NavItem key={item.label} item={item} />
+            ))}
+          </ul>
+        </nav>
 
-          <button
-            type="button"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen((open) => !open)}
-            className="flex h-10 w-10 items-center justify-center text-ink transition-opacity hover:opacity-60 md:hidden"
-          >
-            {menuOpen ? <X size={18} strokeWidth={1.25} /> : <Menu size={18} strokeWidth={1.25} />}
-          </button>
-        </div>
+        <button
+          type="button"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMenuOpen((open) => !open)}
+          className="flex h-10 w-10 items-center justify-center text-[#444444] transition-colors duration-200 hover:text-[#111111] lg:hidden"
+        >
+          {menuOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
+        </button>
       </div>
 
-      <AnimatePresence>
-        {menuOpen ? (
-          <motion.nav
-            id="mobile-menu"
-            aria-label="Mobile"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="overflow-hidden border-t border-mist md:hidden"
-          >
-            <ul className="mx-auto w-full max-w-[1600px] px-5 py-4 sm:px-8">
-              {siteConfig.nav.map((link) => {
-                const active = isActivePath(pathname, link.href);
-                return (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      aria-current={active ? "page" : undefined}
-                      onClick={() => setMenuOpen(false)}
-                      className={cn(
-                        "block py-3 text-xs font-light uppercase tracking-[0.18em] transition-opacity hover:opacity-60",
-                        active ? "opacity-100" : "opacity-70",
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </motion.nav>
-        ) : null}
-      </AnimatePresence>
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </header>
   );
 }

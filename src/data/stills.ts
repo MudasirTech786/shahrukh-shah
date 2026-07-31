@@ -1,4 +1,4 @@
-import type { GalleryPhoto } from "@/types";
+import type { GalleryPhoto, StillSeries, StillSeriesSlug } from "@/types";
 
 import still01 from "./images/stills-01.jpg";
 import still02 from "./images/stills-02.jpg";
@@ -25,44 +25,202 @@ import still22 from "./images/stills-22.jpg";
 import still23 from "./images/stills-23.jpg";
 import still24 from "./images/stills-24.jpg";
 
-interface StillDefinition {
-  src: typeof still01;
-  width: number;
-  height: number;
-  series: string;
-}
+import type { StaticImageData } from "next/image";
 
-const stills: StillDefinition[] = [
-  { src: still01, width: still01.width, height: still01.height, series: "Overview" },
-  { src: still02, width: still02.width, height: still02.height, series: "Landscape Series" },
-  { src: still03, width: still03.width, height: still03.height, series: "Portrait Series" },
-  { src: still04, width: still04.width, height: still04.height, series: "Landscape Series" },
-  { src: still05, width: still05.width, height: still05.height, series: "Mood Series" },
-  { src: still06, width: still06.width, height: still06.height, series: "Portrait Series" },
-  { src: still07, width: still07.width, height: still07.height, series: "NYC Series" },
-  { src: still08, width: still08.width, height: still08.height, series: "Unpublished" },
-  { src: still09, width: still09.width, height: still09.height, series: "Portrait Series" },
-  { src: still10, width: still10.width, height: still10.height, series: "Landscape Series" },
-  { src: still11, width: still11.width, height: still11.height, series: "Overview" },
-  { src: still12, width: still12.width, height: still12.height, series: "Portrait Series" },
-  { src: still13, width: still13.width, height: still13.height, series: "NYC Series" },
-  { src: still14, width: still14.width, height: still14.height, series: "Mood Series" },
-  { src: still15, width: still15.width, height: still15.height, series: "Unpublished" },
-  { src: still16, width: still16.width, height: still16.height, series: "Overview" },
-  { src: still17, width: still17.width, height: still17.height, series: "Mood Series" },
-  { src: still18, width: still18.width, height: still18.height, series: "Landscape Series" },
-  { src: still19, width: still19.width, height: still19.height, series: "Portrait Series" },
-  { src: still20, width: still20.width, height: still20.height, series: "NYC Series" },
-  { src: still21, width: still21.width, height: still21.height, series: "Mood Series" },
-  { src: still22, width: still22.width, height: still22.height, series: "Overview" },
-  { src: still23, width: still23.width, height: still23.height, series: "Landscape Series" },
-  { src: still24, width: still24.width, height: still24.height, series: "Unpublished" },
+const stillImages: StaticImageData[] = [
+  still01,
+  still02,
+  still03,
+  still04,
+  still05,
+  still06,
+  still07,
+  still08,
+  still09,
+  still10,
+  still11,
+  still12,
+  still13,
+  still14,
+  still15,
+  still16,
+  still17,
+  still18,
+  still19,
+  still20,
+  still21,
+  still22,
+  still23,
+  still24,
 ];
 
-export const stillsPhotos: GalleryPhoto[] = stills.map((still) => ({
-  src: still.src,
-  width: still.width,
-  height: still.height,
-  alt: `Still photograph — ${still.series}`,
-  caption: still.series,
-}));
+export const stillSeries: StillSeries[] = [
+  {
+    slug: "portrait-series",
+    title: "Portrait Series",
+    description:
+      "Faces in half-light — collaborators, strangers and friends, photographed close, without direction. The portrait series is about patience: waiting for the guard to drop.",
+    cover: still09,
+  },
+  {
+    slug: "mood-series",
+    title: "Mood Series",
+    description:
+      "Atmosphere over subject. Smoke, rain, tungsten spill and the quiet seconds on set before the call of action — frames chosen for how they feel rather than what they show.",
+    cover: still05,
+  },
+  {
+    slug: "landscape-series",
+    title: "Landscape Series",
+    description:
+      "Sweeping and still. Shot between locations and in the hours a crew isn't looking, these landscapes are about scale — the smallness of people against what surrounds them.",
+    cover: still02,
+  },
+  {
+    slug: "nyc-series",
+    title: "NYC Series",
+    description:
+      "New York at street level — late trains, lit windows, storefronts after close. A long-running record of the city that shaped the way light is used in everything else.",
+    cover: still13,
+  },
+  {
+    slug: "unpublished",
+    title: "Unpublished",
+    description:
+      "Frames that never found a home — outtakes, experiments and test rolls pulled from the archive. Seen together they show the edges of the work: what nearly made it.",
+    cover: still08,
+  },
+];
+
+const seriesMeta: Record<StillSeriesSlug, { title: string; count: number }> = {
+  "portrait-series": { title: "Portrait", count: 16 },
+  "mood-series": { title: "Mood", count: 16 },
+  "landscape-series": { title: "Landscape", count: 16 },
+  "nyc-series": { title: "NYC", count: 16 },
+  unpublished: { title: "Unpublished", count: 16 },
+};
+
+const captions: Record<StillSeriesSlug, string[]> = {
+  "portrait-series": [
+    "Dana, morning light",
+    "Rashid, window light",
+    "Mariam, hard noon",
+    "Omar, after rain",
+    "Selma, tungsten",
+    "Tarek, smoke and glass",
+    "Lena, by the fire escape",
+    "Jean, last frame",
+    "Nadia, softbox gone soft",
+    "Youssef, profile",
+    "Amira, low sun",
+    "Karim, half profile",
+    "Sofia, against the wall",
+    "Elias, quiet minute",
+    "Farah, open shade",
+    "Adam, eyes closed",
+  ],
+  "mood-series": [
+    "Smoke, first take",
+    "Rain on the windshield",
+    "Tungsten spill",
+    "The quiet before action",
+    "Steam, backlit",
+    "Dust in the frame",
+    "Blue hour, lit window",
+    "Fog rolling in",
+    "Red spill on white",
+    "Night, wet street",
+    "Shadow study",
+    "Heat haze",
+    "The pause",
+    "Smoke against black",
+    "Backlit silhouette",
+    "Last cigarette",
+  ],
+  "landscape-series": [
+    "Cedar valley, dawn",
+    "Coastal road, dusk",
+    "Desert, noon heat",
+    "River bend, low water",
+    "Mountain pass, cloud",
+    "Field after harvest",
+    "Sea wall, long light",
+    "Valley fog",
+    "Open plain, storm",
+    "Cliff line, mist",
+    "Salt flats, high sun",
+    "Forest edge, morning",
+    "Bridge across the water",
+    "Dunes at sunset",
+    "High ridge, thin air",
+    "Harbor, grey light",
+  ],
+  "nyc-series": [
+    "Last train, 1am",
+    "Storefront after close",
+    "Lit windows, Chelsea",
+    "Brooklyn rooftop",
+    "Rain at the crossing",
+    "Bodega light",
+    "Fire escape, evening",
+    "Subway platform, empty",
+    "Reflection on glass",
+    "Corner, green light",
+    "El train passing",
+    "Bridges at night",
+    "Morning, 6th Ave",
+    "Delivery on 14th",
+    "The park at dawn",
+    "High Line, dusk",
+  ],
+  unpublished: [
+    "Test roll, expired",
+    "Outtake, rehearsal",
+    "First set, early light",
+    "Misframe, kept",
+    "BTS, cigarette break",
+    "Double exposure",
+    "Half-second too late",
+    "The take they liked",
+    "Scratch film, no one",
+    "Lens flare, accidental",
+    "Faded slide",
+    "Contact sheet detail",
+    "Overexposed, saved",
+    "Backstage, minutes before",
+    "The one that got away",
+    "Unfinished roll",
+  ],
+};
+
+function buildSeries(slug: StillSeriesSlug, offset: number): GalleryPhoto[] {
+  const meta = seriesMeta[slug];
+  const seriesCaptions = captions[slug];
+  return Array.from({ length: meta.count }, (_, index) => {
+    const image = stillImages[(index * 5 + offset) % stillImages.length];
+    return {
+      src: image,
+      width: image.width,
+      height: image.height,
+      alt: `${meta.title} series — ${seriesCaptions[index]}`,
+      caption: seriesCaptions[index],
+      series: slug,
+    };
+  });
+}
+
+export const stillsPhotos: GalleryPhoto[] = [
+  ...buildSeries("portrait-series", 0),
+  ...buildSeries("mood-series", 2),
+  ...buildSeries("landscape-series", 4),
+  ...buildSeries("nyc-series", 6),
+  ...buildSeries("unpublished", 8),
+];
+
+export function getStillSeries(slug: string): StillSeries | undefined {
+  return stillSeries.find((series) => series.slug === slug);
+}
+
+export function stillsBySeries(slug: string): GalleryPhoto[] {
+  return stillsPhotos.filter((photo) => photo.series === slug);
+}

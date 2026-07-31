@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/Container/Container";
 import { Section } from "@/components/Section/Section";
-import { PageTitle } from "@/components/PageTitle/PageTitle";
+import { Hero } from "@/components/Hero/Hero";
 import { Button } from "@/components/Button/Button";
 import { siteConfig } from "@/data/site";
 import portrait from "@/data/images/stills-09.jpg";
@@ -10,21 +10,21 @@ import portrait from "@/data/images/stills-09.jpg";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Khalid Mohtaseb is a director of photography working across narrative features and cinematic advertising, based in New York City.",
+    "Shahrukh Shah is a Producer + cinematographer working across narrative features and cinematic advertising, based in New York City.",
 };
 
 export default function AboutPage() {
   return (
     <Container>
       <Section>
-        <PageTitle title="About" />
+        <Hero title="About" className="mb-10 sm:mb-14" />
 
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-5">
-            <figure className="sticky top-28">
+            <figure className="sticky top-24">
               <Image
                 src={portrait}
-                alt="Portrait of Khalid Mohtaseb"
+                alt="Portrait of Shahrukh Shah"
                 sizes="(min-width: 1024px) 38vw, 100vw"
                 placeholder="blur"
                 className="h-auto w-full"

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Bebas_Neue, Cormorant_Garamond, Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
@@ -9,7 +9,7 @@ import { siteConfig } from "@/data/site";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500"],
+  weight: ["200", "300", "400", "500", "600"],
   variable: "--font-inter",
   display: "swap",
 });
@@ -18,6 +18,13 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
   variable: "--font-cormorant",
+  display: "swap",
+});
+
+const bebas = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bebas",
   display: "swap",
 });
 
@@ -34,14 +41,15 @@ export const metadata: Metadata = {
     template: `%s — ${siteConfig.name}`,
   },
   description:
-    "Khalid Mohtaseb is a director of photography working across narrative features and cinematic advertising. View stills, reels and news from his work.",
+    "Shahrukh Shah is a Director of Photography working across narrative features, cinematic advertising and personal photography. View work, stills, prints and news.",
   keywords: [
-    "Khalid Mohtaseb",
+    "Shahrukh Shah",
     "director of photography",
     "cinematographer",
     "film",
     "commercials",
     "stills",
+    "prints",
     "reels",
   ],
   authors: [{ name: siteConfig.name }],
@@ -52,13 +60,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description:
-      "Cinematic stills and reels from director of photography Khalid Mohtaseb.",
+      "Narrative features, cinematic advertising and personal photography by Shahrukh Shah.",
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description:
-      "Cinematic stills and reels from director of photography Khalid Mohtaseb.",
+      "Narrative features, cinematic advertising and personal photography by Shahrukh Shah.",
   },
   robots: {
     index: true,
@@ -72,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${cormorant.variable} ${bebas.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-paper font-sans text-ink">
         <ScrollProvider>
           <a
@@ -82,7 +90,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <Navbar />
-          <main id="main-content" className="flex-1">
+          <main id="main-content" className="flex-1 pt-[91px]">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />

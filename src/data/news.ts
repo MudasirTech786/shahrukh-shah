@@ -11,7 +11,7 @@ export const newsArticles: NewsArticle[] = [
     title: "Betway ‘Evolution’ launches globally",
     date: "2021-09-01",
     excerpt:
-      "The campaign, shot by Khalid Mohtaseb, rolls out across international markets with a set of cinematic spots built around light and motion.",
+      "The campaign, shot by Shahrukh Shah, rolls out across international markets with a set of cinematic spots built around light and motion.",
     image: newsBetway,
     imageAlt: "Betway — Evolution campaign still",
     href: "https://vimeo.com/641516832",

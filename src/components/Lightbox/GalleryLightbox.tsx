@@ -4,17 +4,23 @@ import { useEffect } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { useLenis } from "@/hooks/useLenis";
-import type { GalleryPhoto } from "@/types";
+
+interface LightboxSlide {
+  src: string;
+  width: number;
+  height: number;
+  alt?: string;
+}
 
 interface GalleryLightboxProps {
-  photos: GalleryPhoto[];
+  slides: LightboxSlide[];
   open: boolean;
   index: number;
   onClose: () => void;
   onIndexChange: (index: number) => void;
 }
 
-export function GalleryLightbox({ photos, open, index, onClose, onIndexChange }: GalleryLightboxProps) {
+export function GalleryLightbox({ slides, open, index, onClose, onIndexChange }: GalleryLightboxProps) {
   const { start, stop } = useLenis();
 
   useEffect(() => {
@@ -26,13 +32,6 @@ export function GalleryLightbox({ photos, open, index, onClose, onIndexChange }:
       start();
     };
   }, [open, start, stop]);
-
-  const slides = photos.map((photo) => ({
-    src: photo.src.src,
-    width: photo.width,
-    height: photo.height,
-    alt: photo.caption,
-  }));
 
   return (
     <Lightbox

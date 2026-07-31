@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Khalid Mohtaseb — Director of Photography";
+export const alt = "Shahrukh Shah — Director of Photography";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -19,7 +19,7 @@ export default function OpengraphImage() {
       }}
     >
       <div style={{ fontFamily: "Georgia, serif", fontSize: 88, fontWeight: 400, letterSpacing: "0.01em" }}>
-        Khalid Mohtaseb
+        Shahrukh Shah
       </div>
       <div
         style={{
