@@ -73,6 +73,7 @@ export interface ProjectVideo {
 
 export interface CommercialVideo {
   title: string;
+  filmedDate: string;
   url: string;
   platform: "Vimeo" | "YouTube" | "Facebook";
   thumbnail: StaticImageData;

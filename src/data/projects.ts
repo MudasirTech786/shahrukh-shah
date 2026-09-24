@@ -179,8 +179,24 @@ const commercialVideoUrls = [
 const commercialVideoPlatform = (url: string): CommercialVideo["platform"] =>
   url.includes("youtube.com") ? "YouTube" : url.includes("facebook.com") ? "Facebook" : "Vimeo";
 
+const commercialVideoTitles = [
+  "Afterlight",
+  "Night Signal",
+  "Open Road",
+  "Still Motion",
+  "Electric Blue",
+  "The Long Frame",
+  "First Light",
+  "Crossing Lines",
+  "Soft Focus",
+  "Golden Hour",
+  "Low Frequency",
+  "Moving Picture",
+];
+
 export const commercialVideos: CommercialVideo[] = commercialVideoUrls.map((url, index) => ({
-  title: `Commercial Film ${String(index + 1).padStart(2, "0")}`,
+  title: commercialVideoTitles[index % commercialVideoTitles.length],
+  filmedDate: `${2016 + (index % 9)}`,
   url,
   platform: commercialVideoPlatform(url),
   thumbnail: home[index % home.length],
