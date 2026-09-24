@@ -1,5 +1,5 @@
 import type { StaticImageData } from "next/image";
-import type { Project, ProjectCategory, WorkCategory } from "@/types";
+import type { CommercialVideo, Project, ProjectCategory, WorkCategory } from "@/types";
 
 import homeBetway from "./images/home-betway.jpg";
 import homeBmw from "./images/home-bmw.jpg";
@@ -118,6 +118,82 @@ const commercialDescription =
 const personalDescription =
   "A personal, self-funded study made between jobs. No brief, no client — just a camera, a city and the hours of the day that belong to no one. These frames are the journal between the films.";
 
+const commercialVideoUrls = [
+  "https://vimeo.com/277264233",
+  "https://vimeo.com/292294233",
+  "https://vimeo.com/292296572",
+  "https://vimeo.com/292297746",
+  "https://vimeo.com/329804359",
+  "https://vimeo.com/329804726",
+  "https://vimeo.com/329805076",
+  "https://vimeo.com/329805351",
+  "https://vimeo.com/329805691",
+  "https://vimeo.com/329806149",
+  "https://vimeo.com/329806881",
+  "https://vimeo.com/383525733",
+  "https://vimeo.com/383524914",
+  "https://vimeo.com/275240844",
+  "https://vimeo.com/451436274",
+  "https://vimeo.com/451436447",
+  "https://vimeo.com/708081708",
+  "https://vimeo.com/708081944",
+  "https://vimeo.com/708082414",
+  "https://vimeo.com/708082465",
+  "https://vimeo.com/708082757",
+  "https://vimeo.com/708083089",
+  "https://vimeo.com/708083221",
+  "https://vimeo.com/708083497",
+  "https://vimeo.com/708083643",
+  "https://vimeo.com/708083804",
+  "https://vimeo.com/708084336",
+  "https://vimeo.com/708084479",
+  "https://vimeo.com/708084591",
+  "https://vimeo.com/708084715",
+  "https://vimeo.com/708084875",
+  "https://vimeo.com/708084983",
+  "https://vimeo.com/986547530",
+  "https://vimeo.com/986551615",
+  "https://vimeo.com/986552270",
+  "https://vimeo.com/986553124",
+  "https://vimeo.com/986553789",
+  "https://vimeo.com/1166312849",
+  "https://www.youtube.com/watch?v=bZEsovjN_ls",
+  "https://www.youtube.com/watch?v=y9ywTy3Rtho",
+  "https://www.youtube.com/watch?v=UKD6CGQgJhw",
+  "https://www.youtube.com/watch?v=so9auWNFBGg",
+  "https://www.youtube.com/watch?v=Tz0hhGuhYec",
+  "https://www.youtube.com/watch?v=0UovfktgAEQ",
+  "https://www.youtube.com/watch?v=bsy_Pxsm-n8",
+  "https://www.youtube.com/watch?v=YasiEP843Wg",
+  "https://www.youtube.com/watch?v=87LwboZ1neo",
+  "https://www.youtube.com/watch?v=afXOZeJkH_8",
+  "https://www.facebook.com/reel/7527576790611540",
+  "https://www.facebook.com/reel/927450899191501",
+  "https://www.facebook.com/reel/896818199504850",
+  "https://vimeo.com/793307543",
+  "https://vimeo.com/1058683128",
+  "https://www.facebook.com/watch/?v=1437681353853359",
+  "https://www.youtube.com/watch?v=i_DyrEqaCuo",
+] as const;
+
+const commercialVideoPlatform = (url: string): CommercialVideo["platform"] =>
+  url.includes("youtube.com") ? "YouTube" : url.includes("facebook.com") ? "Facebook" : "Vimeo";
+
+export const commercialVideos: CommercialVideo[] = commercialVideoUrls.map((url, index) => ({
+  title: `Commercial Film ${String(index + 1).padStart(2, "0")}`,
+  url,
+  platform: commercialVideoPlatform(url),
+  thumbnail: home[index % home.length],
+}));
+
+/** Vimeo account-management URLs are intentionally excluded from public cards. */
+export const commercialVideoManagementTodo = [
+  "https://vimeo.com/manage/videos/490830367",
+  "https://vimeo.com/manage/videos/490823029",
+  "https://vimeo.com/manage/videos/785561855",
+  "https://vimeo.com/manage/videos/791205178",
+] as const;
+
 function narrative(
   slug: string,
   title: string,
@@ -157,6 +233,7 @@ function commercial(
   productionCompany: string,
   cover: StaticImageData,
   galleryStart: number,
+  videoUrl?: string,
 ): Project {
   return {
     slug,
@@ -171,6 +248,7 @@ function commercial(
     cover,
     alt: `Still from the ${title} campaign`,
     gallery: galleryFor(galleryStart),
+    videoUrl,
   };
 }
 

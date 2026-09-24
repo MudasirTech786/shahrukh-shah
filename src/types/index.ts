@@ -71,6 +71,13 @@ export interface ProjectVideo {
   id: string;
 }
 
+export interface CommercialVideo {
+  title: string;
+  url: string;
+  platform: "Vimeo" | "YouTube" | "Facebook";
+  thumbnail: StaticImageData;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -85,6 +92,7 @@ export interface Project {
   alt: string;
   /** Behind-the-scenes / additional stills. */
   gallery: StaticImageData[];
+  videoUrl?: string;
   video?: ProjectVideo;
   featured?: boolean;
 }
