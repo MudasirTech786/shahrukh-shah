@@ -75,7 +75,7 @@ export interface CommercialVideo {
   title: string;
   filmedDate: string;
   url: string;
-  platform: "Vimeo" | "YouTube" | "Facebook";
+  platform: "Vimeo" | "YouTube" | "Google Drive" | "Facebook";
   thumbnail: StaticImageData;
 }
 

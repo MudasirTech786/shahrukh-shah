@@ -176,8 +176,19 @@ const commercialVideoUrls = [
   "https://www.youtube.com/watch?v=i_DyrEqaCuo",
 ] as const;
 
-const commercialVideoPlatform = (url: string): CommercialVideo["platform"] =>
-  url.includes("youtube.com") ? "YouTube" : url.includes("facebook.com") ? "Facebook" : "Vimeo";
+const commercialVideoPlatform = (url: string): CommercialVideo["platform"] => {
+  let hostname = "";
+  try {
+    hostname = new URL(url).hostname.toLowerCase();
+  } catch {
+    return "Vimeo";
+  }
+
+  if (hostname === "drive.google.com" || hostname === "docs.google.com") return "Google Drive";
+  if (hostname === "youtube.com" || hostname.endsWith(".youtube.com") || hostname === "youtu.be") return "YouTube";
+  if (hostname === "facebook.com" || hostname.endsWith(".facebook.com")) return "Facebook";
+  return "Vimeo";
+};
 
 const commercialVideoTitles = [
   "Afterlight",
